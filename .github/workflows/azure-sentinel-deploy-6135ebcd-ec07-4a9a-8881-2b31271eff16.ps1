@@ -517,7 +517,9 @@ function Deployment($fullDeploymentFlag, $remoteShaTable, $tree) {
             if ($path -like "*.bicep") {
                 $templateObject = bicep build $path --stdout | Out-String | ConvertFrom-Json
             } else {
-                $templateObject = Get-Content $path | Out-String | ConvertFrom-Json
+                # $templateObject = Get-Content $path | Out-String | ConvertFrom-Json
+                $templateObject = Get-Content $path | Out-String | ConvertFrom-Json -AsHashTable
+
             }
 
             if (-not (IsValidResourceType $templateObject))
